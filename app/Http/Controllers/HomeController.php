@@ -15,8 +15,9 @@ class HomeController extends Controller
     public function index()
     {
         $data = Post::all();
+        return view('home.blade.php');
         //dd($data);
-        return view('home',compact('data'));
+        //return view('home',compact('data'));
     }
 
     /**

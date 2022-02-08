@@ -16,9 +16,9 @@ use App\Http\Controllers\HomeController;
 
 /*use App\Http\Controllers\UserController;*/
 
-Route::get('/', [HomeController::class, 'index']);
+//Route::get('/', [HomeController::class, 'index']);
 
-//Route::resource('posts',HomeController::class);
+Route::resource('posts',HomeController::class);
 
 //Route::get('contact', [HomeController::class, 'contact']);
 //Route::get('about', [HomeController::class, 'about']);
