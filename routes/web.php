@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -20,6 +21,8 @@ use App\Http\Controllers\HomeController;
 
 //Route::get('/',[HomeController::class, 'testroot'])->name('root');
 Route::resource('posts',HomeController::class);
+Route::get('logout',[AuthController::class,'logout']);
+//Route::get('info', function() { phpinfo(); });
 
 //Route::get('contact', [HomeController::class, 'contact']);
 //Route::get('about', [HomeController::class, 'about']);
@@ -48,3 +51,4 @@ Route::resource('posts',HomeController::class);
 //     ];
 //     return view('about', compact('data'));
 // });
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'index']);
