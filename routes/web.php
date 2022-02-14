@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 
 //Route::get('/', [HomeController::class, 'index']);
 
+//Route::get('/',[HomeController::class, 'testroot'])->name('root');
 Route::resource('posts',HomeController::class);
 
 //Route::get('contact', [HomeController::class, 'contact']);
