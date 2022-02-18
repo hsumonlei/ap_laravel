@@ -20,11 +20,15 @@ class HomeController extends Controller
         dd("This is the root path");
     } */
 
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //$data = Post::all();
-        $data = Post :: orderBy('id','desc')->get();
+        //dd(auth()->user()->id);
+        $data = Post :: where('user_id',auth()->id())->orderBy('id','desc')->get();
         //dd($data);
         return view('home',compact('data'));
         //dd($data);
@@ -81,6 +85,10 @@ class HomeController extends Controller
     public function show(Post $post)
     {
         //dd($post->categories->name);
+/*         if($post->user_id != auth()->id()){
+            abort(403);
+        } */
+        $this->authorize('view',$post);
         return view('show',compact('post'));
     }
 
@@ -99,6 +107,9 @@ class HomeController extends Controller
 
     public function edit(Post $post)
     {
+/*         if($post->user_id != auth()->id()){
+            abort(403);
+        } */
         $categories = Category::all();
         return view('edit',compact('post', 'categories'));
         //dd($id);
