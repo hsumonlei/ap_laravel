@@ -1,6 +1,10 @@
 <?php
 
+use App\Test;
+use App\Container;
+use App\TestFacade;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 
@@ -15,40 +19,53 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-/*use App\Http\Controllers\UserController;*/
 
-//Route::get('/', [HomeController::class, 'index']);
 
-//Route::get('/',[HomeController::class, 'testroot'])->name('root');
+/* Route::get('/', function(){
+
+    $container = new Container();
+    $container->bind('test',function(){
+        return new Test();
+    });
+        $test =$container->resolve('test');
+        
+        dd($test->smth());
+
+}); */
+/* Route::get('/', function(){
+    app()->bind('test',function(){
+        return new Test('Hsu');
+    });
+
+   $test = resolve('test');
+   //$test = resolve(App\Test::class); 
+
+
+   dd($test);
+}); */
+
+
 Route::resource('posts',HomeController::class);
+
 Route::get('logout',[AuthController::class,'logout']);
-//Route::get('info', function() { phpinfo(); });
 
-//Route::get('contact', [HomeController::class, 'contact']);
-//Route::get('about', [HomeController::class, 'about']);
+Route::get('/',function(){
+    //return TestFacade::execute();
+    //dd(app('test')->execute());
+    dd(TestFacade::execute());
 
-// Route::get('/', function () {
-//     $data = [
-//         'home_key' => 'home_value',
-//         'sub_home_key' => 'sub_home_value',
-//     ];
-//     return view('home', compact('data'));
+
+    //dd(resolve('view'));
+    //return Request::input('name');
+    //return request('name');
+
+
+    //return view('welcome'); //view facades getFacadeAccessor() used
+});
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'index']);
+
+// Route::get('/',function(){
+//     dd(resolve('test'));
+
 // });
-
-// Route::get('contact', function(){
-//     $data = [
-//         'contact_key' => 'contact_value',
-//         'sub_contact_key' => 'sub_contact_value',
-//     ];
-//     return view('contact', compact('data'));
-// });
-
-
-// Route::get('about', function(){
-//     $data = [
-//         'about_key' => 'about_value',
-//         'sub_about_key' => 'sub_about_value',
-//     ];
-//     return view('about', compact('data'));
-// });
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'index']);

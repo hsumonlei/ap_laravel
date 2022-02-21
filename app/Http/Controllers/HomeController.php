@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Mail\PostStored;
 use App\Models\Category;
+use App\Mail\PostCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\storePostRequest;
 
 
@@ -24,12 +28,20 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
+        //dd(Post::all());
         //$data = Post::all();
         //dd(auth()->user()->id);
+
+/*         //dd(config('aprogrammer.info.created'));
+        Mail::raw('Hello World', function($msg){
+            $msg->to('hsulei@gmail.com')->subject("AP Index Function");//demo purpose
+        }); */
+        
         $data = Post :: where('user_id',auth()->id())->orderBy('id','desc')->get();
         //dd($data);
+        //$request->session()->flash('status','Task was successful!');
         return view('home',compact('data'));
         //dd($data);
         
@@ -57,13 +69,20 @@ class HomeController extends Controller
     {
         // Retrieve the validated input...
         $validated = $request->validated();
-        Post::create($validated);
+        //$post = Post::create($validated + ['user_id'=>auth()->id()]);
+        $post = Post::create($validated + ['user_id'=>Auth::user()->id]);
+
+        
+        //Mail::to('hsulei@gmail.com')->send(new PostStored($post));
+        //Mail::to('hsulei@gmail.com')->send(new PostCreated());
+
+        return redirect('/posts')->with('status',config('aprogrammer.message.created'));
 /*         Post:: create([
             'name' => $request->name,
             'description' => $request->description,
             'category_id' => $request->category,
         ]); */
-        return redirect('/posts');
+        //return redirect('/posts');
         //dd("store methods");
     }
 
