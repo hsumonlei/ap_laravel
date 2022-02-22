@@ -52,15 +52,13 @@ Route::get('logout',[AuthController::class,'logout']);
 Route::get('/',function(){
     //return TestFacade::execute();
     //dd(app('test')->execute());
-    dd(TestFacade::execute());
+    //dd(TestFacade::execute());
 
-
+    return view('welcome');
     //dd(resolve('view'));
     //return Request::input('name');
     //return request('name');
-
-
-    //return view('welcome'); //view facades getFacadeAccessor() used
+   //return view('welcome'); //view facades getFacadeAccessor() used
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'index']);

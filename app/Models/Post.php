@@ -18,12 +18,12 @@ class Post extends Model
         return $this->belongsTo('App\Models\Category','category_id');
     }
 
-    protected static function booted(){
+/*     protected static function booted(){
         static::created(function ($user){
             //dd("This is test in post.php");
             Mail::to('hsulei@gmail.com')->send(new PostCreated());
 
         });
-    }
+    } */
 
 }
